@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+}
+
+main {
+    overflow-x: auto; /* Asegúrate de que el main también permita desplazamiento si es necesario */
+}
+
+
+body {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    color: rgb(var(--bs-tertiary-color-rgb));
+  }
+
