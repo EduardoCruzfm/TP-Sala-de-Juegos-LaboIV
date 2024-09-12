@@ -190,5 +190,14 @@ body {
 
 
   /* --------------- */
-
+ 
+  /* Ajusta el valor según el tamaño del encabezado fijo */
+  #Ahorcado ,#MayorMenor, #Dados ,#Preguntados {
+    scroll-margin-top: 11rem; 
+  }
+    
+  #Ahorcado ,#MayorMenor ,#Dados ,#Preguntados {
+    z-index: 1000; /* Ajusta el valor según sea necesario */
+    position: relative; /* Asegúrate de que el elemento esté posicionado */
+  }
   
