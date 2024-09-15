@@ -3,26 +3,54 @@ import { NavbarComponent } from '../navbar/navbar.component';
 
 import { ViewportScroller } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
+import { RouterModule } from '@angular/router';
+
+import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent,RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  // Variable para almacenar el correo del usuario
-  public userEmail: string | null = null;
+  userLoggedIn: boolean = false; // Estado de autenticación
+  userEmail: string | null = null; // Variable para almacenar el correo del usuario
 
-  constructor( private viewportScroller: ViewportScroller, private router: Router) {
+  constructor(private auth: Auth, private viewportScroller: ViewportScroller, private router: Router) {
+
+    onAuthStateChanged(this.auth, (user: User | null) => {
+      this.userLoggedIn = !!user; // Actualizar estado según autenticación
+      this.userEmail = user ? user.email : null; // Obtener el correo del usuario
+    });
+
     this.router.events.subscribe((event) => {
-      
       if (event instanceof NavigationEnd) {
         this.viewportScroller.scrollToPosition([0, 0]); // Desplaza al inicio de la página
       }
     });
-  } // Inyectar el Router
+  } 
+
+  onLinkClick(event: MouseEvent) {
+    event.preventDefault(); // Evita la acción predeterminada del enlace
+
+    // Realiza aquí la validación
+    const isValid = this.validateUser();
+    if (isValid) {
+      this.router.navigate(['/quien-soy']);
+    } else {
+      console.log('Validación fallida');
+    }
+  }
+
+
+  validateUser() {
+    if (this.userLoggedIn) {
+      return true;
+    } else {
+      return false;
+  }}
 
   scrollToSection(sectionId: string) {
     this.router.navigate([], { fragment: sectionId }).then(() => {

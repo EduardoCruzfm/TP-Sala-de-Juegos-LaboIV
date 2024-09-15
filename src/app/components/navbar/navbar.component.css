@@ -1,0 +1,19 @@
+/* Alinea el contenido de la navbar a la derecha */
+.navbar-nav.ms-auto {
+    margin-left: auto;
+  }
+  
+  /* Alinea los botones de autenticación a la derecha */
+  .form.d-flex.ms-auto {
+    margin-left: auto;
+  }
+  
+  /* Ajustes específicos si es necesario */
+  .navbar-nav .nav-link {
+    margin-right: 1rem; /* Espacio entre los enlaces de navegación */
+  }
+  
+  .navbar-toggler {
+    margin-left: auto;
+  }
+  
