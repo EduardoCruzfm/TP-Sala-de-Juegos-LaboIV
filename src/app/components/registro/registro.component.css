@@ -1,0 +1,54 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #333; /* Color de fondo para la página */
+}
+
+/* Aplica estilo a la imagen del login */
+.form-signin img {
+  border: 6px solid rgba(0, 0, 0, 0.8); /* Borde oscuro más grueso */
+  border-radius: 10%; /* Hace la imagen circular */
+  padding: 5px; /* Espacio entre el borde y la imagen */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.55
+  ); /* Fondo blanco semi-transparente, opcional */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para hacer la imagen resaltar */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Asegura que el contenedor ocupa el alto completo de la ventana */
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 2rem; /* Ajusta el padding para mayor separación */
+  background-color: #fff; /* Color de fondo para el formulario para contraste */
+  border-radius: 0.5rem; /* Opcional: redondear las esquinas del formulario */
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.text-center {
+  text-align: center; /* Centra el contenido dentro del div */
+}

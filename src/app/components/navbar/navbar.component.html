@@ -1,28 +1,77 @@
 <header data-bs-theme="dark">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <div class="container-fluid">
-        <button class="navbar-brand btn btn-link text-decoration-none" (click)="home()" style="border: none; padding: 0;">Sala de Juegos</button>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-              <button class="nav-link active" aria-current="page"  (click)="home()">Home</button>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link" (click)="quienSoy()">Quien Soy</button>
-            </li>
-            <li class="nav-item">
-              <button class="nav-link disabled" aria-disabled="true">Disabled</button>
-            </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-            <button class="btn btn-outline-danger" (click)="cerrarSecion()">Cerrar sesión</button>
-          </form>
-        </div>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <button
+        class="navbar-brand btn btn-link text-decoration-none"
+        (click)="home()"
+        style="border: none; padding: 0"
+      >
+        Sala de Juegos
+      </button>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <button
+              class="nav-link active"
+              aria-current="page"
+              (click)="home()"
+            >
+              Home
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" (click)="quienSoy()">Quien Soy</button>
+          </li>
+          <li class="nav-item" *ngIf="userLoggedIn">
+            <a class="nav-link" href="#">Usuario: {{ userEmail }}</a>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link disabled" aria-disabled="true">
+              Disabled
+            </button>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+          <!-- <button class="btn btn-outline-danger" (click)="cerrarSecion()">Cerrar sesión</button> -->
+          <!-- Botones condicionales según estado de autenticación -->
+          <button
+            type="button"
+            *ngIf="!userLoggedIn"
+            class="btn btn-outline-primary me-2"
+            (click)="iniciarSesion()"
+          >
+            Iniciar Sesión
+          </button>
+          <button
+            type="button"
+            *ngIf="!userLoggedIn"
+            class="btn btn-outline-secondary"
+            (click)="registrarse()"
+          >
+            Registrarse
+          </button>
+          <button
+            type="button"
+            *ngIf="userLoggedIn"
+            class="btn btn-outline-danger"
+            (click)="cerrarSesion()"
+          >
+            Cerrar sesión
+          </button>
+        </form>
       </div>
-    </nav>
-</header> 
-   
+    </div>
+  </nav>
+</header>

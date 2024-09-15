@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import {
   FormControl,
   FormGroup,
@@ -6,21 +7,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-//Para login
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
-//
+import { Router } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-registro',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, SweetAlert2Module],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  templateUrl: './registro.component.html',
+  styleUrl: './registro.component.css',
 })
-export class LoginComponent {
+export class RegistroComponent {
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
@@ -28,40 +26,36 @@ export class LoginComponent {
 
   constructor(private router: Router, private auth: Auth) {} // Inyectar el Router
 
-  usuarioAdmin() {
-    this.form.patchValue({
-      email: 'admin@example.com',
-      password: 'admin123',
-    });
-  }
-
-  // Login
-  async handleLogin() {
+  // Registrar
+  async handleRegister() {
     if (this.form.valid) {
       const { email, password } = this.form.value;
 
       if (typeof email === 'string' && typeof password === 'string') {
         try {
-          await signInWithEmailAndPassword(this.auth, email, password);
-          //
-          this.form.get('email')?.setValue('');
-          this.form.get('password')?.setValue('');
-
+          await createUserWithEmailAndPassword(this.auth, email, password);
           await Swal.fire({
             title: 'Éxito!',
-            text: 'Inicio de sesión exitoso!',
+            text: 'Registro exitoso!',
             icon: 'success',
           });
           this.router.navigate(['/home']);
-        } catch (error) {
-          // Mostrar alerta en caso de error de autenticación
-          await Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Correo o contraseña incorrectos. Por favor, intenta de nuevo!',
-            footer: '<a href="#">Why do I have this issue?</a>',
-          });
-          console.error('Error al iniciar sesión:', error);
+        } catch (error: any) {
+          if (error.code === 'auth/email-already-in-use') {
+            // Manejo específico cuando el correo ya está registrado
+            await Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'El correo electrónico ya está en uso!',
+            });
+          } else {
+            await Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Error al registrarse. Por favor, intenta de nuevo!',
+              footer: '<a href="#">Why do I have this issue?</a>',
+            });
+          }
         }
       } else {
         await Swal.fire({

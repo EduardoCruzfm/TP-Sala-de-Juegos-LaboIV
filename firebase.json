@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": "dist/tp-sprint/browser",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

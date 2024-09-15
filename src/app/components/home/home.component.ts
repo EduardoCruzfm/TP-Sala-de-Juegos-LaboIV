@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-// import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 import { ViewportScroller } from '@angular/common';
@@ -10,18 +9,20 @@ import { Router, NavigationEnd } from '@angular/router';
   standalone: true,
   imports: [NavbarComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent {
+  // Variable para almacenar el correo del usuario
+  public userEmail: string | null = null;
 
-  constructor(private viewportScroller: ViewportScroller,private router: Router) {
+  constructor( private viewportScroller: ViewportScroller, private router: Router) {
     this.router.events.subscribe((event) => {
+      
       if (event instanceof NavigationEnd) {
         this.viewportScroller.scrollToPosition([0, 0]); // Desplaza al inicio de la página
       }
     });
-  }  // Inyectar el Router
-
+  } // Inyectar el Router
 
   scrollToSection(sectionId: string) {
     this.router.navigate([], { fragment: sectionId }).then(() => {
@@ -31,5 +32,19 @@ export class HomeComponent {
       }
     });
   }
-
 }
+// afriadenrich
+// facuCast
+
+// ngOnInit(): void {
+//   this.mostrarAlerta(); // Llama a la función para mostrar la alerta en ngOnInit
+// }
+
+// por si queres probar si anduvo bien
+// mostrarAlerta() {
+//   Swal.fire({
+//     title: '¡Hola!',
+//     text: 'Esta es una alerta de ejemplo en Angular con SweetAlert2 al inicializar el componente',
+//     icon: 'success', // Icono de éxito
+//     confirmButtonText: 'Aceptar'
+//   });

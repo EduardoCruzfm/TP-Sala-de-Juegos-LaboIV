@@ -1,24 +1,43 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Auth, onAuthStateChanged, User  } from '@angular/fire/auth';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
+  userLoggedIn: boolean = false;      // Estado de autenticación
+  userEmail: string | null = null;    // Variable para almacenar el correo del usuario
 
-  constructor(private router: Router) {}  // Inyectar el Router
-  
-  home(){
-      this.router.navigate(['/home']).then(() => {
-        this.scrollToSection('nav');
-      }); 
-     }
+  constructor(private auth: Auth, private router: Router) {
+    onAuthStateChanged(this.auth, (user :User | null) => {
 
-  quienSoy(){  this.router.navigate(['/quien-soy']);  }
+      if (user) {
+        // this.userLoggedIn = !!user; // Actualizar estado según autenticación
+        this.userLoggedIn = true; 
+        this.userEmail = user.email;    // Obtener el correo del usuario
+      } else {
+        this.userLoggedIn = false; 
+        this.userEmail = null;    // Limpiar el correo si no está autenticado
+      }
+
+    });
+  }
+
+  home() {
+    this.router.navigate(['/home']).then(() => {
+      this.scrollToSection('nav');
+    });
+  }
+
+  quienSoy() {
+    this.router.navigate(['/quien-soy']);
+  }
 
   scrollToSection(sectionId: string) {
     this.router.navigate([], { fragment: sectionId }).then(() => {
@@ -29,8 +48,17 @@ export class NavbarComponent {
     });
   }
 
-  cerrarSecion(){
-    this.router.navigate(['/']);
+  cerrarSesion() {
+    this.auth.signOut().then(() => {
+      this.router.navigate(['/home']); // Redirige al home después de cerrar sesión
+    });
   }
 
+  iniciarSesion() {
+    this.router.navigate(['/login']); // Redirige al login
+  }
+
+  registrarse() {
+    this.router.navigate(['/register']); // Redirige a la página de registro
+  }
 }

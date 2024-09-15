@@ -3,6 +3,20 @@ body {
   height: 100%;
 }
 
+/* Aplica estilo a la imagen del login */
+.form-signin img {
+  border: 6px solid rgba(0, 0, 0, 0.8); /* Borde oscuro más grueso */
+  border-radius: 10%; /* Hace la imagen circular */
+  padding: 5px; /* Espacio entre el borde y la imagen */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.55
+  ); /* Fondo blanco semi-transparente, opcional */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para hacer la imagen resaltar */
+}
+
 .form-signin {
   max-width: 330px;
   padding: 1rem;
@@ -41,10 +55,11 @@ body {
 .b-example-divider {
   width: 100%;
   height: 3rem;
-  background-color: rgba(0, 0, 0, .1);
-  border: solid rgba(0, 0, 0, .15);
+  background-color: rgba(0, 0, 0, 0.1);
+  border: solid rgba(0, 0, 0, 0.15);
   border-width: 1px 0;
-  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+  box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
+    inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
 }
 
 .b-example-vr {
@@ -54,7 +69,7 @@ body {
 }
 
 .bi {
-  vertical-align: -.125em;
+  vertical-align: -0.125em;
   fill: currentColor;
 }
 
