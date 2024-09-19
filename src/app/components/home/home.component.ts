@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-
 import { ViewportScroller } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { RouterModule } from '@angular/router';
-
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent,RouterModule],
+  imports: [NavbarComponent,RouterModule, SweetAlert2Module],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -32,18 +32,24 @@ export class HomeComponent {
     });
   } 
 
-  onLinkClick(event: MouseEvent) {
+  async onLinkClick(event: MouseEvent, path: string) {
     event.preventDefault(); // Evita la acción predeterminada del enlace
 
     // Realiza aquí la validación
     const isValid = this.validateUser();
     if (isValid) {
-      this.router.navigate(['/quien-soy']);
+      this.router.navigate([path]);
     } else {
+
+      await Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'Debe registrarse para poder juagar!',
+        footer: '<a href="/register">Registrarse!</a>',
+      });
       console.log('Validación fallida');
     }
   }
-
 
   validateUser() {
     if (this.userLoggedIn) {

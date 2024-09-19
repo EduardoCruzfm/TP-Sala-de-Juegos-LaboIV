@@ -1,0 +1,40 @@
+/* .game-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .card-display {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .buttons button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+  }
+  
+  .score {
+    margin-top: 20px;
+    font-size: 20px;
+  } */
+  
+  .card {
+    overflow: hidden; /* Asegura que el contenido no se desborde del contenedor */
+  }
+  
+  .card-img-top {
+    width: 100%; /* Ajusta el ancho de la imagen al contenedor */
+    height: 100%; /* Ajusta la altura de la imagen al contenedor */
+    object-fit: contain; /* Ajusta la imagen para que se muestre completa dentro del contenedor sin recortarla */
+  }
+  
+  .btn {
+    font-size: 20px; /* Aumenta el tamaño del texto del botón */
+    padding: 7px 24px; /* Aumenta el padding para agrandar el botón */
+  }
+  
+  .btn-group {
+    margin-top: 10px; /* Agrega un margen superior para separar los botones del contenido superior */
+  }
+  

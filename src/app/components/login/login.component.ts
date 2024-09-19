@@ -1,15 +1,8 @@
 import { Component } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import {FormControl,FormGroup,FormsModule,ReactiveFormsModule,Validators} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 //Para login
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
-//
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
 
@@ -32,6 +25,20 @@ export class LoginComponent {
     this.form.patchValue({
       email: 'admin@example.com',
       password: 'admin123',
+    });
+  }
+
+  usuarioGerente(){
+    this.form.patchValue({
+      email: 'gerente@example.com',
+      password: 'gerente123'
+    });
+  }
+
+  usuarioEmpleado(){
+    this.form.patchValue({
+      email: 'empleado@example.com',
+      password: 'empleado123'
     });
   }
 
