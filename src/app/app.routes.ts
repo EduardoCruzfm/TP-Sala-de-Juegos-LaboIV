@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige la ruta raíz a "login"
@@ -34,6 +35,18 @@ export const routes: Routes = [
       import('./games/mayor-menor/mayor-menor.component').then(
         (m) => m.MayorMenorComponent
       ),
+  },
+  {
+    path: 'ahorcado',
+    loadComponent: () =>
+      import('./games/ahorcado/ahorcado.component').then(
+        (m) => m.AhorcadoComponent
+      ),
+  },
+  {
+    path: 'chat',
+    loadComponent: () => import('./components/chat/chat.component').then(m => m.ChatComponent),
+    // canActivate: [authGuard], // Aplica la guarda aquí
   },
   {
     path: '**', //Comodin de error -> hacer page de error

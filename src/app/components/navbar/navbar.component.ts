@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Auth, onAuthStateChanged, User  } from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service'; 
 
 @Component({
   selector: 'app-navbar',
@@ -14,18 +14,15 @@ export class NavbarComponent {
   userLoggedIn: boolean = false;      // Estado de autenticación
   userEmail: string | null = null;    // Variable para almacenar el correo del usuario
 
-  constructor(private auth: Auth, private router: Router) {
-    onAuthStateChanged(this.auth, (user :User | null) => {
+  constructor(private authService: AuthService, private router: Router) {
+    // Suscribirse a los cambios de estado de autenticación
+    this.authService.userLoggedIn$.subscribe((isLoggedIn) => {
+      this.userLoggedIn = isLoggedIn;
+    });
 
-      if (user) {
-        // this.userLoggedIn = !!user; // Actualizar estado según autenticación
-        this.userLoggedIn = true; 
-        this.userEmail = user.email;    // Obtener el correo del usuario
-      } else {
-        this.userLoggedIn = false; 
-        this.userEmail = null;    // Limpiar el correo si no está autenticado
-      }
-
+    // Suscribirse a los cambios de correo del usuario
+    this.authService.userEmail$.subscribe((email) => {
+      this.userEmail = email;
     });
   }
 
@@ -49,7 +46,7 @@ export class NavbarComponent {
   }
 
   cerrarSesion() {
-    this.auth.signOut().then(() => {
+    this.authService.logout().then(() => {
       this.router.navigate(['/home']); // Redirige al home después de cerrar sesión
     });
   }

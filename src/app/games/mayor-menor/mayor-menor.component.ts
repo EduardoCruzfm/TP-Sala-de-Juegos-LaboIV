@@ -11,10 +11,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 })
 export class MayorMenorComponent implements OnInit {
 
-  
-
   cartas: Array<{ valor: number, palo: string, imagen: string }> = [ 
-    // Oros
     { valor: 1, palo: 'oros', imagen: 'cartas/1.png' }, 
     { valor: 2, palo: 'oros', imagen: 'cartas/2.png' },
     { valor: 3, palo: 'oros', imagen: 'cartas/3.png' },

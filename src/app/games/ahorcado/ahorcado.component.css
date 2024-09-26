@@ -1,0 +1,20 @@
+.muñeco {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+  
+  .palabra-oculta {
+    font-size: 24px;
+    letter-spacing: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .botones-letras {
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    font-size: 18px;
+    padding: 10px;
+  }
+  

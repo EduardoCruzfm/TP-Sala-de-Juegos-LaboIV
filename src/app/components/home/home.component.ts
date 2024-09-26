@@ -3,9 +3,10 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { ViewportScroller } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
+// import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth.service'; 
 
 @Component({
   selector: 'app-home',
@@ -16,13 +17,17 @@ import Swal from 'sweetalert2';
 })
 export class HomeComponent {
   userLoggedIn: boolean = false; // Estado de autenticación
-  userEmail: string | null = null; // Variable para almacenar el correo del usuario
+  userEmail: string | null = null; 
 
-  constructor(private auth: Auth, private viewportScroller: ViewportScroller, private router: Router) {
+  constructor(private authService: AuthService, private viewportScroller: ViewportScroller, private router: Router) {
+    // Suscribirse a los cambios de estado de autenticación
+    this.authService.userLoggedIn$.subscribe((isLoggedIn) => {
+      this.userLoggedIn = isLoggedIn;
+    });
 
-    onAuthStateChanged(this.auth, (user: User | null) => {
-      this.userLoggedIn = !!user; // Actualizar estado según autenticación
-      this.userEmail = user ? user.email : null; // Obtener el correo del usuario
+    // Suscribirse a los cambios de correo del usuario
+    this.authService.userEmail$.subscribe((email) => {
+      this.userEmail = email;
     });
 
     this.router.events.subscribe((event) => {
@@ -35,8 +40,9 @@ export class HomeComponent {
   async onLinkClick(event: MouseEvent, path: string) {
     event.preventDefault(); // Evita la acción predeterminada del enlace
 
-    // Realiza aquí la validación
+    // La validación
     const isValid = this.validateUser();
+
     if (isValid) {
       this.router.navigate([path]);
     } else {
@@ -45,18 +51,20 @@ export class HomeComponent {
         icon: 'warning',
         title: 'Oops...',
         text: 'Debe registrarse para poder juagar!',
-        footer: '<a href="/register">Registrarse!</a>',
+        footer: `
+        <div style="display: flex; flex-direction: column;">
+          <a href="/login">Iniciar Sesión</a>
+          <a href="/register">Registrarse</a>
+        </div>
+      `
       });
       console.log('Validación fallida');
     }
   }
 
   validateUser() {
-    if (this.userLoggedIn) {
-      return true;
-    } else {
-      return false;
-  }}
+    return this.userLoggedIn;
+  }
 
   scrollToSection(sectionId: string) {
     this.router.navigate([], { fragment: sectionId }).then(() => {

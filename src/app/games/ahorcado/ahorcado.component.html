@@ -1,0 +1,31 @@
+<div class="container mt-5 text-center">
+    <h1>Ahorcado</h1>
+    
+    <!-- Imagen del muñeco -->
+    <div class="mb-4">
+      <img [src]="imagenMuneco" alt="Muñeco Ahorcado" class="muñeco">
+    </div>
+  
+    <!-- Palabra oculta -->
+    <div class="mb-4 palabra-oculta">
+      <span *ngFor="let letra of palabraOculta">{{ letra }} </span>
+    </div>
+  
+    <!-- Botones para las letras -->
+    <div class="botones-letras">
+      <button *ngFor="let letra of letras" 
+              (click)="seleccionarLetra(letra)" 
+              [disabled]="letrasSeleccionadas.includes(letra)" 
+              class="btn btn-secondary m-1">
+        {{ letra }}
+      </button>
+    </div>
+  
+    <!-- Mensaje de victoria o derrota -->
+    <div *ngIf="juegoTerminado" class="alert" [ngClass]="{'alert-success': ganador, 'alert-danger': !ganador}">
+      <p *ngIf="ganador">¡Ganaste!</p>
+      <p *ngIf="!ganador">¡Perdiste! La palabra era {{ palabraOriginal }}</p>
+      <button class="btn btn-primary" (click)="reiniciarJuego()">Jugar de nuevo</button>
+    </div>
+  </div>
+  

@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+// import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import {FormControl, FormGroup,FormsModule,ReactiveFormsModule,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth.service'; 
 
 @Component({
   selector: 'app-registro',
@@ -24,7 +19,7 @@ export class RegistroComponent {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private router: Router, private auth: Auth) {} // Inyectar el Router
+  constructor(private router: Router, private authService: AuthService) {} // Inyectar el Router
 
   // Registrar
   async handleRegister() {
@@ -33,7 +28,7 @@ export class RegistroComponent {
 
       if (typeof email === 'string' && typeof password === 'string') {
         try {
-          await createUserWithEmailAndPassword(this.auth, email, password);
+          await this.authService.register(email, password);
           await Swal.fire({
             title: 'Éxito!',
             text: 'Registro exitoso!',

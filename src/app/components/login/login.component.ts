@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import {FormControl,FormGroup,FormsModule,ReactiveFormsModule,Validators} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-//Para login
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth.service'; 
 
 @Component({
   selector: 'app-login',
@@ -19,7 +18,7 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private router: Router, private auth: Auth) {} // Inyectar el Router
+  constructor(private router: Router, private authService: AuthService) {} // Inyectar el Router
 
   usuarioAdmin() {
     this.form.patchValue({
@@ -49,8 +48,8 @@ export class LoginComponent {
 
       if (typeof email === 'string' && typeof password === 'string') {
         try {
-          await signInWithEmailAndPassword(this.auth, email, password);
-          //
+           // Usar el AuthService para manejar el inicio de sesión
+          await this.authService.login(email, password);
           this.form.get('email')?.setValue('');
           this.form.get('password')?.setValue('');
 
