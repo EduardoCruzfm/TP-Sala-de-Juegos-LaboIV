@@ -1,22 +1,22 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-
+import { map, take } from 'rxjs/operators';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
-  return new Promise<boolean>((resolve) => {
-    // Observa el estado de autenticación de manera asíncrona
-    const subscription = authService.userLoggedIn$.subscribe(isLoggedIn => {
+  return authService.userLoggedIn$.pipe(
+    take(1),  // Toma solo el primer valor emitido
+    map(isLoggedIn => {
+      console.log('Estado de autenticación en guard:', isLoggedIn);  // Log para depuración
       if (isLoggedIn) {
-        resolve(true); // Usuario autenticado
+        return true;  // Usuario autenticado, permitir acceso
       } else {
-        router.navigate(['/login']); // Redirigir al login si no está autenticado
-        resolve(false);
+        router.navigate(['/login']);  // Redirige si no está autenticado
+        return false;
       }
-      subscription.unsubscribe(); // Desuscribirse después de verificar
-    });
-  });
+    })
+  );
 };

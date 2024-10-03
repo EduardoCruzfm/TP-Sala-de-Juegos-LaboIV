@@ -1,18 +1,20 @@
 <div *ngIf="user; else noAuth">
-    <div class="chat-window">
-      <div *ngFor="let message of messages | async" class="message">
-        <strong>{{ message.user }}</strong> <small>{{ message.timestamp.toDate() | date: 'shortTime' }}</small>
-        <p>{{ message.text }}</p>
-      </div>
-    </div>
-  
-    <div class="chat-input">
-      <input [(ngModel)]="messageText" placeholder="Escribe tu mensaje..." />
-      <button (click)="sendMessage()">Enviar</button>
+  <div class="chat-window"  #chatWindow>
+    <div *ngFor="let message of messages | async" 
+         [ngClass]="{'my-message': message.user === userName, 'other-message': message.user !== userName}" 
+         class="message">
+      <strong>{{ message.user }}</strong>
+      <small>{{ message.timestamp.toDate() | date: 'shortTime' }}</small>
+      <p>{{ message.text }}</p>
     </div>
   </div>
-  
-  <ng-template #noAuth>
-    <p>Debes estar logueado para acceder al chat.</p>
-  </ng-template>
-  
+
+  <div class="chat-input">
+    <input [(ngModel)]="messageText" placeholder="Escribe tu mensaje..." />
+    <button (click)="sendMessage()">Enviar</button>
+  </div>
+</div>
+
+<ng-template #noAuth>
+  <p>Debes estar logueado para acceder al chat.</p>
+</ng-template>

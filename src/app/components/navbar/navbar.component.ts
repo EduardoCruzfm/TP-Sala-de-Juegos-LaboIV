@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  userLoggedIn: boolean = false;      // Estado de autenticación
+  userLoggedIn: boolean = false;      // Estado de autenticación, para el mostrar usuario
   userEmail: string | null = null;    // Variable para almacenar el correo del usuario
 
   constructor(private authService: AuthService, private router: Router) {

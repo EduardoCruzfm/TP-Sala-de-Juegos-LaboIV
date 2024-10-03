@@ -1,0 +1,29 @@
+.juego-dados {
+    text-align: center;
+  }
+  
+  button {
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
+  .juego-dados img {
+    border: 2px solid #000; /* Bordes opcionales para los dados */
+    border-radius: 8px;
+  }
+  
+  .juego-dados img {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Añadir sombras a los dados */
+  }
+  
+  .juego-dados button {
+    padding: 10px 20px;
+    font-size: 18px;
+  }
+  
+  .juego-dados .card {
+    background-color: #f8f9fa; /* Color suave para el contenedor del resultado */
+    border: 1px solid #dee2e6;
+  }
+  

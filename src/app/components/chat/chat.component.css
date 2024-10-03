@@ -1,28 +1,59 @@
+/* Ajusta el contenedor de la ventana de chat para ocupar todo el espacio vertical */
 .chat-window {
-    height: 400px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  .message {
-    margin-bottom: 10px;
-  }
-  
-  .chat-input {
-    display: flex;
-    margin-top: 10px;
-  }
-  
-  .chat-input input {
-    flex-grow: 1;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .chat-input button {
-    margin-left: 10px;
-    padding: 5px 10px;
-  }
-  
+  flex-grow: 1;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: calc(100vh - 200px); /* Ajusta la altura para que se adapte a la pantalla */
+}
+
+/* Asegúrate de que el contenedor principal del chat ocupe todo el espacio disponible */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Hace que ocupe toda la altura de la pantalla */
+}
+
+/* Ajuste del input en la parte inferior */
+.chat-input {
+  display: flex;
+  margin-top: auto; /* Este es el truco para mantener el input en la parte inferior */
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.chat-input button {
+  margin-left: 10px;
+  padding: 5px 10px;
+}
+
+/* Estilos de los mensajes */
+.message {
+  margin-bottom: 10px;
+}
+
+.my-message {
+  background-color: #d1f7c4; /* Fondo para los mensajes del usuario actual */
+  padding: 10px;
+  border-radius: 10px;
+  text-align: right;
+  margin-left: auto;
+  max-width: 80%;
+}
+
+.other-message {
+  background-color: #f0f0f0; /* Fondo para los mensajes de otros usuarios */
+  padding: 10px;
+  border-radius: 10px;
+  text-align: left;
+  margin-right: auto;
+  max-width: 80%;
+}
+

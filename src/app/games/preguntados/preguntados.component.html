@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <!-- Título de la pregunta -->
+  <h1 class="text-center">Pregunta: {{ preguntaActual }}</h1>
+
+  <!-- Imagen obtenida de la API de Unsplash -->
+  <div class="text-center mt-4">
+    <img [src]="imagenes[indicePregunta]?.urls?.small" alt="Imagen relacionada con la pregunta" class="img-fluid" *ngIf="imagenes">
+  </div>
+
+  <!-- Opciones de respuestas -->
+  <h2 class="text-center">Opciones:</h2>
+  <div class="d-flex flex-column align-items-center">
+    <button 
+      *ngFor="let respuesta of respuestas" 
+      class="btn btn-primary mb-2" 
+      (click)="respuestaSeleccionada(respuesta)"
+      [disabled]="juegoTerminado">
+      {{ respuesta }}
+    </button>
+  </div>
+
+  <!-- Mensaje de resultado -->
+  <div class="text-center mt-3">
+    <h3>{{ mensajeResultado }}</h3>
+  </div>
+
+  <!-- Botón para volver a jugar si el juego ha terminado -->
+  <div class="text-center mt-3" *ngIf="juegoTerminado">
+    <button class="btn btn-warning" (click)="volverAJugar()">Volver a Jugar</button>
+  </div>
+
+  <!-- Puntuación -->
+  <div class="text-center mt-3">
+    <h4>Puntos: {{ puntos }}</h4>
+  </div>
+</div>

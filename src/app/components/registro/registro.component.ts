@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service'; 
+import { inject, Injectable } from '@angular/core';
+import { DatabaseService } from '../../services/database.service'; 
+import { Usuario } from '../../classes/usuario';
 
 @Component({
   selector: 'app-registro',
@@ -15,20 +18,37 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegistroComponent {
   form = new FormGroup({
+    name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private router: Router, private authService: AuthService) {} // Inyectar el Router
+  constructor(private router: Router, private authService: AuthService) {} 
+  db = inject(DatabaseService);
 
   // Registrar
   async handleRegister() {
     if (this.form.valid) {
-      const { email, password } = this.form.value;
+      const { name, email, password } = this.form.value;
 
-      if (typeof email === 'string' && typeof password === 'string') {
+      if (typeof name === 'string' && typeof email === 'string' && typeof password === 'string') {
         try {
-          await this.authService.register(email, password);
+
+          // await this.authService.register(email, password);
+          // const user = new Usuario(name,email);
+          // this.db.agregarUsuario(user);
+          
+          await this.authService.register(email,password)
+          .then((userCredential) => {
+            const userId = userCredential.user?.uid;
+            
+            // Agregar el nombre y otros detalles a Firestore
+            if (userId) {
+              const usuario = new Usuario(name,email,userId);
+              this.db.agregarUsuario(usuario);
+            }
+          });
+          
           await Swal.fire({
             title: 'Éxito!',
             text: 'Registro exitoso!',

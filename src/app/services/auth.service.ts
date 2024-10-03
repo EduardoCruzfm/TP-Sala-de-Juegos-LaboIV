@@ -18,9 +18,11 @@ export class AuthService {
 
   // Verifica el estado de autenticación del usuario
   private checkAuthState() {
+
     onAuthStateChanged(this.auth, (user: User | null) => {
       const isLoggedIn = !!user;
       const email = user ? user.email : null;
+      console.log('Usuario autenticado:', isLoggedIn, 'Email:', email); // test
       this.userLoggedInSubject.next(isLoggedIn); // Actualiza el estado de autenticación
       this.userEmailSubject.next(email); // Actualiza el correo del usuario
     });
@@ -44,6 +46,11 @@ export class AuthService {
   // Método para cerrar sesión
   logout(): Promise<void> {
     return signOut(this.auth);
+  }
+
+   // Devuelve el usuario actual
+   getCurrentUser(): User | null {
+    return this.auth.currentUser; 
   }
 }
 

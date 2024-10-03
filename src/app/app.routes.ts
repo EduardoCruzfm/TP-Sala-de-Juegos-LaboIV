@@ -45,8 +45,24 @@ export const routes: Routes = [
   },
   {
     path: 'chat',
-    loadComponent: () => import('./components/chat/chat.component').then(m => m.ChatComponent),
+    loadComponent: () => 
+      import('./components/chat/chat.component').then(m => m.ChatComponent),
     // canActivate: [authGuard], // Aplica la guarda aquí
+  },
+  {
+    path: 'dados',
+    loadComponent: () => 
+      import('./games/dados/dados.component').then(m => m.DadosComponent),
+  },
+  {
+    path: 'menu_preguntados',
+    loadComponent: () => 
+      import('./games/menu-preguntados/menu-preguntados.component').then(m => m.MenuPreguntadosComponent),
+  },
+  {
+    path: 'preguntados/:categoriaId/:categoriaNombre',
+    loadComponent: () => 
+      import('./games/preguntados/preguntados.component').then(m => m.PreguntadosComponent),
   },
   {
     path: '**', //Comodin de error -> hacer page de error
@@ -54,3 +70,5 @@ export const routes: Routes = [
       import('./components/home/home.component').then((m) => m.HomeComponent),
   },
 ];
+
+// allow read, write: if true;

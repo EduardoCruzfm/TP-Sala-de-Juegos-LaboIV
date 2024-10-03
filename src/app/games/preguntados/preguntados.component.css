@@ -1,0 +1,7 @@
+.container {
+    max-width: 600px; /* Ajustar el ancho máximo */
+  }
+  
+  .btn {
+    width: 100%; /* Botones ocupan todo el ancho disponible */
+  }

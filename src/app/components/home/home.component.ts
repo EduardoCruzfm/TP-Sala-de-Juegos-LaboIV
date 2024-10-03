@@ -66,6 +66,30 @@ export class HomeComponent {
     return this.userLoggedIn;
   }
 
+  async navigateToChat() {
+      // La validación
+      const isValid = this.validateUser();
+
+      if (isValid) {
+        this.router.navigate(['/chat']); // Asegúrate de que '/chat' sea la ruta correcta
+      } else {
+  
+        await Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'Debe registrarse para poder chatear!',
+          footer: `
+          <div style="display: flex; flex-direction: column;">
+            <a href="/login">Iniciar Sesión</a>
+            <a href="/register">Registrarse</a>
+          </div>
+        `
+        });
+        console.log('Validación fallida');
+      }
+    
+  }
+
   scrollToSection(sectionId: string) {
     this.router.navigate([], { fragment: sectionId }).then(() => {
       const element = document.getElementById(sectionId);
